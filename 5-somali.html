@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" href="https://i.postimg.cc/VJGFxRQn/5539745.png">
+    <title>Chat App</title>
+    <style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    transition: 1s;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #f0f0f0;
+}
+
+.container {
+    text-align: center;
+    margin: 100px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#chatArea {
+    margin-top: 20px;
+    position: fixed;
+    left: 0;
+    right: 1px;
+    bottom: 70px;
+    top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    display: none;
+    transition: 1s;
+    text-align: left;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: transparent;
+    border-radius: 10px;
+}
+
+.message {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.message img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    box-shadow: 0 0 4px #34343434;
+}
+
+.message p {
+    background-color: #dcf8c6;
+    padding: 10px;
+    box-shadow: 0 0 4px #34343434;
+    border-radius: 10px;
+    margin: 0;
+}
+
+#send-area {
+    margin-top: 20px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+#messageInput {
+    width: 80%;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    margin-right: 10px;
+    outline: none;
+}
+
+#sendMessageBtn{
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.message.me {
+  justify-content: flex-end;
+}
+
+.message.not-me {
+  justify-content: flex-start;
+}
+
+#m {
+    background-color: #dcf8f9;
+}
+
+#loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#l {
+    animation: 1s k linear infinite;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #0076ff;
+}
+
+@keyframes k {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+#googleSignInBtn {
+    width: 100%;
+    padding: 20px;
+    font-size: 25px;
+    border-radius: 3px;
+}
+
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    background-color: transparent;
+    justify-content: space-between;
+    display: none;
+    align-items: center;
+    padding: 5px;
+}
+#appName {
+    font-size: 40px;
+    color: green;
+    display: flex;
+    font-family: Georgia;
+    animation: words-move-up 5s linear infinite;
+}
+@keyframes words-move-up {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(10);
+    }
+}
+@media only screen and (max-width: 600px) {
+    .container {
+        margin: 50px;
+    }
+    
+    #messageInput {
+        width: 60%;
+    }
+}
+@media only screen and (min-width: 601px) {
+    .container {
+        margin: 100px;
+    }
+    
+    #messageInput {
+        width: 80%;
+        background-color: transparent;
+    }
+}
+#n{
+  width: 50px;
+  height: 50px;
+}
+#showOthers{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 20px;
+  padding: 10px;
+}
+#others{
+  position: fixed;
+  z-index: 999;
+  height: 100vh;
+  width: 250px;
+  right: 1px;
+  text-align: center;
+  top: 72px;
+  display: none;
+  transition: 1s;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 3px #43434343;
+}
+.buttons, #newName{
+  width: 100%;
+  background-color: transparent;
+  color: #000;
+  margin-top: 15px;
+  font-weight: bold;
+  box-shadow: 0 0 2px #29292941;
+}
+.fa-envelope, .fa-sign-out-alt{
+  position: absolute;
+  right: 5%;
+}
+#newName{
+  border: 1px solid #29292941;
+  padding: 10px;
+  outline: none;
+  font-size: 17px;
+}
+#userImage2{
+  width: 200px;
+  background-image: linear-gradient(to right, #421e59, #d416be);
+  box-shadow: 0 0 5px #29292941;
+  border: 1px solid #101040;
+  height: 200px;
+  border-radius: 50%;
+}
+hr{
+  width: 100%;
+}
+#settings{
+  position: fixed;
+  bottom: 20px;
+  right: 0;
+  width: 42%;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  box-shadow: 0 0 2px #29292941;
+}
+#img2{
+  width: 40px;
+  height: 40px;
+  box-shadow: 0 0 3px #29292941;
+}
+#profileSection{
+  height: 100vh;
+  z-index: 9999;
+  position: fixed;
+  top: 72px;
+  width: 270px;
+  right: 1px;
+  box-shadow: 0 0 3px #43434343;
+  background-color: #fff;
+  text-align: left;
+}
+#backBtn{
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  background-color: transparent;
+  padding: 0px;
+  color: #434343;
+  font-size: 20px;
+}
+h3{
+  padding: 0px 0px 0px 4px;
+}
+a{
+  text-decoration: none;
+  color: black;
+  width: 100%;
+  font-size: 15px;
+  padding: 10px;
+}
+    </style>
+</head>
+<body>
+  <header id="header">
+    <span id="appName"><img id="n" src='https://i.postimg.cc/VJGFxRQn/5539745.png' border='0' alt='Chat Icon'/>Chat Public</span>
+    <button id="showOthers"><i class="fa fa-bars"></i></button>
+  </header>
+    <div class="container" id="container">
+        <button id="googleSignInBtn">Sign in with Google</button>
+        <div id="chatArea"></div>
+        <div id="send-area">
+          <input style="border: 1px solid #34343434;" type="text" id="messageInput" placeholder="Type your message..." >
+          <button id="sendMessageBtn">Send</button>
+        </div>
+    </div>
+    <div id="loading">
+      <div id="l"></div>
+    </div>
+    <div id="others">
+      <span id="userName2"></span>
+      <hr>
+      <img id="userImage2" src="">
+      <hr>
+      <div id="profileSection" style="display: none;">
+        <button id="backBtn"><i class="fa fa-arrow-left"></i></button><br>
+        <hr>
+        <h3 style="text-align: left;">About</h3>
+        <button id="contact" style="text-align: left;" class="buttons">Contact Us <i class="fa  fa-envelope"></i></button>
+        <button id="signOutButton" class="buttons" style="text-align: left;">SignOut<i class="fa fa-sign-out-alt"></i></button>
+        <hr>
+        <h3 style="text-align: left;">Apps</h3>
+        <button style="text-align: left;" class="buttons"><a href="https://www.appcreator24.com/app2609448-vag0so">Whoapp</a></button>
+        <button style="text-align: left;" class="buttons"><a href="https://www.appcreator24.com/app2937647-jdgqny">WebCoderV⁸</a></button>
+    </div>
+      <div id="settings">
+        <span id="emailDisplay"><i class="fa fa-user-circle"></i></span>
+        <button id="showSettings"><i class="fa fa-cog"></i></button>
+      </div>
+      <button id="signOutButton2" class="buttons">SignOut<i class="fa fa-sign-out-alt"></i></button>
+    </div>
+    <script type="module">
+      import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.5/firebase-app.js';
+      import { getAuth, GoogleAuthProvider, signInWithPopup, signOut} from 'https://www.gstatic.com/firebasejs/9.6.5/firebase-auth.js';
+      import { getFirestore, collection, onSnapshot, addDoc, query, orderBy } from 'https://www.gstatic.com/firebasejs/9.6.5/firebase-firestore.js';
+      const firebaseConfig = {
+        apiKey: "AIzaSyA7SBddUcN2dDKwYwPR_o4HsbHgU648fM8",
+        authDomain: "new-app-ad5ea.firebaseapp.com",
+        databaseURL: "https://new-app-ad5ea-default-rtdb.firebaseio.com",
+        projectId: "new-app-ad5ea",
+        storageBucket: "new-app-ad5ea.appspot.com",
+        messagingSenderId: "13560733487",
+        appId: "1:13560733487:web:05dcd1db0bcf027b410bda",
+        measurementId: "G-F86L86DK9W"
+      };
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+      const googleSignInBtn = document.getElementById('googleSignInBtn');
+      const signOutButton2 = document.getElementById('signOutButton2');
+      const chatArea = document.getElementById('chatArea');
+      const messageInput = document.getElementById('messageInput');
+      const sendArea = document.getElementById('send-area');
+      const header = document.getElementById('header');
+      const sendMessageBtn = document.getElementById('sendMessageBtn');
+      document.getElementById('showOthers').addEventListener('click', function () {
+    const others = document.getElementById('others');
+    if (others.style.display === 'block') {
+        others.style.display = 'none';
+    } else {
+        others.style.display = 'block';
+    }
+});
+      let currentUser = null;
+      googleSignInBtn.addEventListener('click', () => {
+        const provider = new GoogleAuthProvider();
+        signInWithGooglePopup(provider);
+        });
+        signOutButton.addEventListener('click', function () {
+          signOut(auth).then(() => {
+          chatArea.style.display = 'none'
+          sendArea.style.display = 'none'
+          document.getElementById('showOthers').click();
+          googleSignInBtn.style.display = 'block'
+          header.style.display = 'none'
+        }).catch((error) => {
+          alert(error);
+        });
+        })
+sendMessageBtn.addEventListener('click', function () {
+    const message = messageInput.value;
+    if (message.trim() !== '') {
+        addMessageToFirestore(message);
+        messageInput.value = '';
+    }
+});
+signOutButton2.addEventListener('click', function () {
+    signOutButton.click();
+})
+        function addMessageToFirestore(message) {
+    if (currentUser) {
+        addDoc(collection(db, 'messages'), {
+            message: message,
+            timestamp: new Date(),
+            userName: currentUser.displayName,
+            userImage: currentUser.photoURL
+        })
+        .then(() => {
+        })
+        .catch((error) => {
+            alert('Error sending message: ', error);
+        });
+    } else {
+        alert('Please sign in first.');
+    }
+}
+document.getElementById('showSettings').addEventListener('click', function () {
+    document.getElementById('profileSection').style.display = 'block';
+});
+
+document.getElementById('backBtn').addEventListener('click', function () {
+    document.getElementById('profileSection').style.display = 'none';
+});
+function signInWithGooglePopup(provider) {
+    signInWithPopup(auth, provider)
+        .then((result) => {
+            currentUser = result.user;
+            alert(`Signed in as ${currentUser.displayName}`);
+            chatArea.style.display = 'block';
+            sendArea.style.display = 'flex';
+            header.style.display = 'flex';
+            googleSignInBtn.style.display = 'none';
+            loadMessages();
+        })
+        .catch((error) => {
+            alert(error);
+        });
+}
+
+window.onload = function () {
+    auth.onAuthStateChanged((user) => {
+        if (user) {
+     document.getElementById('loading').style.display = 'none';
+            currentUser = user;
+            chatArea.style.display = 'block';
+            sendArea.style.display = 'flex';
+            header.style.display = 'flex';
+            googleSignInBtn.style.display = 'none';
+            loadMessages();
+        } else {
+            chatArea.style.display = 'none';
+            document.getElementById('loading').style.display = 'none';
+            sendArea.style.display = 'none';
+            header.style.display = 'none';
+            googleSignInBtn.style.display = 'block';
+        }
+    });
+}
+document.getElementById('contact').addEventListener('click', function () {
+  var a = document.createElement('a');
+  a.href = 'Contact Us.html';
+  a.click();
+})
+function loadMessages() {
+    onSnapshot(
+        query(collection(db, 'messages'), orderBy('timestamp', 'desc')),
+        (snapshot) => {
+            const messages = [];
+            snapshot.forEach((doc) => {
+                messages.push(doc.data());
+            });
+            messages.reverse();
+            chatArea.innerHTML = '';
+            messages.forEach((messageData) => {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message');
+                if (messageData.userName === currentUser.displayName) {
+                document.getElementById('userImage2').src = `${messageData.userImage}`;
+                document.getElementById('userName2').textContent = `${messageData.userName}`;
+                document.getElementById('emailDisplay').innerHTML = `<img id="img2" src="${messageData.userImage}"> ${messageData.userName}`;
+                    messageElement.classList.add('me');
+                    messageElement.innerHTML = `
+                        <div>
+                            <p id="m"><strong>${messageData.userName}</strong><br> ${messageData.message}</p>
+                        </div>
+                        ${messageData.userImage ? `<img src="${messageData.userImage}" alt="User Avatar">` : '<i class="fas fa-user-circle"></i>'}
+                    `;
+                } else {
+                    messageElement.classList.add('not-me');
+                    messageElement.innerHTML = `
+                        ${messageData.userImage ? `<img src="${messageData.userImage}" alt="User Avatar">` : '<i class="fas fa-user-circle"></i>'}
+                        <div>
+                            <p><strong>${messageData.userName}</strong><br> ${messageData.message}</p>
+                        </div>
+                    `;
+                }
+                chatArea.appendChild(messageElement);
+            });
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+    );
+}
+</script>
+</body>
+</html>

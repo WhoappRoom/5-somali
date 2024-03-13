@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us</title>
+    <link rel="icon" href="https://i.postimg.cc/VJGFxRQn/5539745.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <style>
+      #open{
+        outline: none;
+        border: none;
+        position: relative;
+        text-align: center;
+        width: 100%;
+        padding: 10px;
+      }
+    </style>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+    ></script>
+    <script type="text/javascript">
+  (function () {
+    emailjs.init("qGLP9Ffap5vjrZuHO");
+  })();
+  function sendMail() {
+    var name = document.getElementById('name').value;
+    var email = document.getElementById('email').value;
+    var message = document.getElementById('message').value;
+
+    if (name === "") {
+      alert('Enter Your Name.');
+    } else if (email === "") {
+      alert('Enter Your Email.');
+    } else if (message === "") {
+      alert('Enter Your Message.');
+    } else {
+      var params = {
+        name: name,
+        email: email,
+        message: message,
+      };
+
+      const serviceID = "service_x0ixkqp";
+      const templateID = "template_ay52j7u";
+
+      emailjs.send(serviceID, templateID, params)
+        .then(res => {
+          document.getElementById("name").value = "";
+          document.getElementById("email").value = "";
+          document.getElementById("message").value = "";
+          alert("Your message sent successfully!!");
+        })
+        .catch(err => alert('Error ' + err));
+    }
+  }
+</script>
+  </head>
+  <body>
+    <div class="container border mt-3 bg-light">
+      <div class="row">
+        <div class="col-md-6 p-5 bg-primary text-white">
+          <h1>Hi there!</h1>
+          <h4>
+            Contact us and we will respond quickly 
+          </h4>
+        </div>
+        <div class="col-md-6 border-left py-3">
+          <h1>Contact form</h1>
+          <div class="form-group">
+            <h5 for="name">Name</h5>
+            <input type="text" class="form-control" id="name" placeholder="Enter name"
+            />
+          </div>
+          <div class="form-group">
+            <h5 for="email">Email</h5>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              placeholder="Enter email"
+            />
+          </div>
+          <div class="form-group">
+            <h5 for="message">Message</h5>
+            <textarea class="form-control" id="message" rows="3"></textarea>
+          </div>
+          <button class="btn btn-primary" onclick="sendMail()">Submit</button>
+        </div>
+        <button id="open" class="btn btn-primary">Go Back Home</button>
+      </div>
+    </div>
+    <script>
+      document.getElementById('open').addEventListener('click', function () {
+        var t = document.createElement('a');
+        t.href = '5-somali.html';
+        t.click();
+        })
+    </script>
+  </body>
+</html>
