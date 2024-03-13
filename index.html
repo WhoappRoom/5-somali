@@ -424,7 +424,7 @@ function signInWithGooglePopup(provider) {
         .then((result) => {
             currentUser = result.user;
             alert(`Signed in as ${currentUser.displayName}`);
-            window.location.relod();
+            window.location.reload();
             chatArea.style.display = 'block';
             sendArea.style.display = 'flex';
             header.style.display = 'flex';
