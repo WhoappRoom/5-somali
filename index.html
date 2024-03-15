@@ -22,7 +22,10 @@ body {
 }
 #containerAds{
   width: 100%;
-  height: 100vh;
+  height: 100px;
+  position: fixed;
+  overflow: scroll;
+  top: 0;
 }
 .container {
     text-align: center;
@@ -43,7 +46,7 @@ button {
     left: 0;
     right: 1px;
     bottom: 70px;
-    top: 50px;
+    top: 150px;
     margin-left: auto;
     margin-right: auto;
     display: none;
@@ -52,7 +55,7 @@ button {
     overflow-y: scroll;
     border: 1px solid #ccc;
     padding: 10px;
-    background-color: transparent;
+    background-color: #fff;
     border-radius: 10px;
 }
 
@@ -159,7 +162,7 @@ button {
     top: 0;
     left: 0;
     right: 0;
-    height: 50px;
+    height: 100px;
     background-color: transparent;
     justify-content: space-between;
     display: none;
@@ -221,7 +224,7 @@ button {
   width: 250px;
   right: 1px;
   text-align: center;
-  top: 72px;
+  top: 172px;
   display: none;
   transition: 1s;
   padding: 10px;
@@ -311,6 +314,20 @@ a{
     </style>
 </head>
 <body>
+<div id="containerAds">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2589773138840280"
+     crossorigin="anonymous"></script>
+<!-- Display -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2589773138840280"
+     data-ad-slot="2484593261"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
   <header id="header">
     <span id="appName"><img id="n" src='https://i.postimg.cc/VJGFxRQn/5539745.png' border='0' alt='Chat Icon'/>Chat Public</span>
     <button id="showOthers"><i class="fa fa-bars"></i></button>
@@ -347,17 +364,6 @@ a{
         <button id="showSettings"><i class="fa fa-cog"></i></button>
       </div>
       <button id="signOutButton2" class="buttons">SignOut<i class="fa fa-sign-out-alt"></i></button>
-    </div>
-    <div id="containerAds">
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-2589773138840280"
-     data-ad-slot="5169330886"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
     </div>
     <script type="module">
       import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.5/firebase-app.js';
